@@ -71,17 +71,17 @@ public class BlockController : MonoBehaviour
                 //get a transfrom.left
 
                 //block.AddForce(transform.right * -1 * thrust);
-                block.velocity = Vector2.left;
+                block.velocity = Vector2.left * thrust;
                 break;
 
             case Direction.right:
                 //block.AddForce(transform.right * thrust);
-                block.velocity = Vector2.right;
+                block.velocity = Vector2.right * thrust;
                 break;
 
             case Direction.up:
                 //block.AddForce(transform.up * thrust);
-                block.velocity = Vector2.up;
+                block.velocity = Vector2.up * thrust;
                 break;
         }
     }

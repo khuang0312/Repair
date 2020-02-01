@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class FreezesMovingBlocks : MonoBehaviour
 {
-    
+    Rigidbody2D rb;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.gameObject.name);
+        //stop the current block
+        //assign the block controller script to a new object
 
-        //"free
+        
     }
 }
