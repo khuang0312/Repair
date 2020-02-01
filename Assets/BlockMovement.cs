@@ -6,8 +6,7 @@ public class BlockMovement : MonoBehaviour
 {
     public Vector2 targetPosition;
     public float speed = 3f;
-    public float up = 0;
-    public float side = 0;
+    public bool movable = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,37 +16,28 @@ public class BlockMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (movable)
         {
-            side += 0.5f;
-            // targetPosition = transform.position + new Vector3(0.5f, 0, 0);
-            // targetPosition = new Vector2(Mathf.Ceil(targetPosition.x), Mathf.Ceil(targetPosition.y));
+            if (Input.GetKey(KeyCode.D))
+            {
+                targetPosition = transform.position + new Vector3(0.5f, 0, 0);
+                targetPosition = new Vector2(Mathf.Ceil(targetPosition.x), targetPosition.y);
+            }
+
+            else if (Input.GetKey(KeyCode.A))
+            {
+                targetPosition = transform.position + new Vector3(-0.5f, 0, 0);
+                targetPosition = new Vector2(Mathf.Floor(targetPosition.x), targetPosition.y);
+            }
+
+            targetPosition = new Vector2(targetPosition.x, targetPosition.y + .03f);
         }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            side += -0.5f;
-            // targetPosition = transform.position + new Vector3(-0.5f, 0, 0);
-            // targetPosition = new Vector2(Mathf.Floor(targetPosition.x), Mathf.Ceil(targetPosition.y));
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            up += 0.5f;
-        }
-
-        // targetPosition = transform.position + new Vector3(0, 0.1f, 0);
-
-        targetPosition = transform.position + new Vector3(side, up, 0);
-        targetPosition = new Vector2(Mathf.Floor(targetPosition.x), Mathf.Ceil(targetPosition.y));
-
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
-        up = 0;
-        side = 0;
     }
 
     void OnCollisionStay2D(Collision2D other)
     {
-        targetPosition = transform.position;
+        targetPosition = new Vector2(Mathf.Round(targetPosition.x), Mathf.Round(targetPosition.y * 2f) * 0.5f);
+        movable = false;
     }
 }
