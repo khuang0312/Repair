@@ -6,6 +6,8 @@ public class BlockMovement : MonoBehaviour
 {
     public Vector2 targetPosition;
     public float speed = 2f;
+    public float up = 0;
+    public float side = 0;
 
     // Update is called once per frame
     void Update()
