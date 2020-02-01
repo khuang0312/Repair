@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 254770987379621855}
   - component: {fileID: 254770987379621848}
   m_Layer: 0
-  m_Name: ThreeLine
+  m_Name: 4Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -93,7 +93,7 @@ PrefabInstance:
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
@@ -168,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
@@ -243,7 +243,7 @@ PrefabInstance:
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
@@ -318,7 +318,7 @@ PrefabInstance:
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2902749485670690978, guid: fcebff664bf5b3941960a9fe90b6d9f5,
         type: 3}

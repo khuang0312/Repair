@@ -12,16 +12,31 @@ public class BlockMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            targetPosition = transform.position + new Vector3(0.5f, 0, 0);
-            targetPosition = new Vector2(Mathf.Ceil(targetPosition.x), Mathf.Ceil(targetPosition.y));
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            targetPosition = transform.position + new Vector3(-0.5f, 0, 0);
-            targetPosition = new Vector2(Mathf.Floor(targetPosition.x), Mathf.Ceil(targetPosition.y));
+            side += 0.5f;
+            // targetPosition = transform.position + new Vector3(0.5f, 0, 0);
+            // targetPosition = new Vector2(Mathf.Ceil(targetPosition.x), Mathf.Ceil(targetPosition.y));
         }
 
+        if (Input.GetKey(KeyCode.A))
+        {
+            side += -0.5f;
+            // targetPosition = transform.position + new Vector3(-0.5f, 0, 0);
+            // targetPosition = new Vector2(Mathf.Floor(targetPosition.x), Mathf.Ceil(targetPosition.y));
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            up += 0.5f;
+        }
+
+        // targetPosition = transform.position + new Vector3(0, 0.1f, 0);
+
+        targetPosition = transform.position + new Vector3(side, up, 0);
+        targetPosition = new Vector2(Mathf.Floor(targetPosition.x), Mathf.Ceil(targetPosition.y));
+
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
+        up = 0;
+        side = 0;
     }
 
     void OnCollisionStay2D(Collision2D other)
