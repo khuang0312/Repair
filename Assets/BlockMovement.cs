@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlockMovement : MonoBehaviour
 {
     public Vector2 targetPosition;
+<<<<<<< HEAD
     public float speed = 3f;
     public bool movable = true;
     // Start is called before the first frame update
@@ -12,6 +13,11 @@ public class BlockMovement : MonoBehaviour
     {
         targetPosition = transform.position;
     }
+=======
+    public float speed = 2f;
+    public float up = 0;
+    public float side = 0;
+>>>>>>> 1858161f41fc479d00aee17542eab1ca729a6710
 
     // Update is called once per frame
     void Update()
