@@ -32,23 +32,27 @@ public class BoardModel : MonoBehaviour
     public GameObject preGenerationBlock;
     public List<GameObject> blocksArray = new List<GameObject>();
 
+    private bool movingBlock = false;
 
     void Start()
     {
         // Initializing cells
         InitializeBoard();
-
         // Placing the pre-generated blocks within the predefined rows
         InitialGeneration(numBlocks);
-
-        // Spawn the first block
-        spawnBlock();
     }
 
     void Update()
     {
         // Evaluate win condition
         // evaluateWinCondition();
+        if (!movingBlock)
+        {
+            spawnBlock();
+            movingBlock = true;
+        }
+
+
     }
 
     // Initialises every cell in the board to "empty"
@@ -80,10 +84,10 @@ public class BoardModel : MonoBehaviour
     void spawnBlock()
     {
         // Pick a random block from the array
-        // int index = Random.Range(0, 1);
+        int index = Random.Range(0, 10);
 
         // Quaternion.identity means no rotation
-        GameObject.Instantiate(blocksArray[0], new Vector2(0, 0), Quaternion.identity);
+        GameObject.Instantiate(blocksArray[index], new Vector2(0, 0), Quaternion.identity);
     }
 
     void PlaceBlock(Vector2 cell)
