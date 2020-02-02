@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BoardModel : MonoBehaviour
 {
-    //some variables we need throughout
+    // Initialise camera for later
     Camera mainCamera;
 
-    //this sets up the board
+    // Sets up the board
     static int rows = 21;
     static int columns = 24;
     BlockTypes[,] board = new BlockTypes[rows, columns];
 
-    //this might come in handy...
+    // Enumerator for each of the states of a block
     enum BlockTypes
     {
         empty,
@@ -21,24 +21,24 @@ public class BoardModel : MonoBehaviour
         faller,
     }
 
-    //this affects the pre-generated blocks
+    // Affects the pre-generated blocks
     public int numBlocks;
 
-    //this will be from lowestRow to highestRow (inclusive)...
+    // Number lowest and highest row (inclusive)
     public int lowestRow;
     public int highestRow;
 
-    //this is where we stick the block we want to randomly generate...
+    // Object to hold pre-generared blocks
     public GameObject preGenerationBlock;
     public List<GameObject> blocksArray = new List<GameObject>();
 
 
     void Start()
     {
-        //initializing the cells
+        // Initializing cells
         InitializeBoard();
 
-        //placing the pre-generated blocks randomly within a certain range of rows...
+        // Placing the pre-generated blocks within the predefined rows
         InitialGeneration(numBlocks);
 
         // Spawn the first block
@@ -47,12 +47,11 @@ public class BoardModel : MonoBehaviour
 
     void Update()
     {
-        //evaluate win condition
+        // Evaluate win condition
         // evaluateWinCondition();
     }
 
-    //this is for initializing every cell in the board to empty
-    //empty represents that there is nothing currently occupying it
+    // Initialises every cell in the board to "empty"
     void InitializeBoard()
     {
         for (int i = 0; i < rows; ++i)
@@ -64,17 +63,17 @@ public class BoardModel : MonoBehaviour
         }
     }
 
-    //this places the intial blocks...
+    // Places starting blocks
     void InitialGeneration(int numBlocks)
     {
-        //there will only be maxNumberOfBlocks generated
-        //they will generate within the whole width and select rows of the board...
+        // there will only be maxNumberOfBlocks generated
+        // they will generate within the whole width and select rows of the board...
         for (int i = 0; i < numBlocks; ++i)
         {
-            //pick a cell in the board
-            Vector2 cell = pickCell();
+            // Pick a defined cell in the board
+            Vector2 cell = PickCell();
 
-            placeBlock(cell);
+            PlaceBlock(cell);
         }
     }
 
@@ -87,16 +86,15 @@ public class BoardModel : MonoBehaviour
         GameObject.Instantiate(blocksArray[0], new Vector2(0, 0), Quaternion.identity);
     }
 
-    void placeBlock(Vector2 cell)
+    void PlaceBlock(Vector2 cell)
     {
-        //instantiate
         Instantiate(preGenerationBlock, cell, Quaternion.identity);
 
-        //flag cell to show that it's been occupied.
+        // Flag cell to show that it is occupied
         board[(int)cell.y, (int)cell.x] = BlockTypes.preGenBlock;
     }
 
-    Vector2 pickCell()
+    Vector2 PickCell()
     {
         int y = Random.Range(lowestRow, highestRow);
         int x = Random.Range(0, columns);
@@ -125,7 +123,7 @@ public class BoardModel : MonoBehaviour
 
         for (int i = 0; i < rows; ++i)
         {
-            //find the first row of a bridge...
+            // Find the first row of a bridge
             if (board[i, 0] != BlockTypes.empty)
             {
                 y = i;
@@ -137,17 +135,18 @@ public class BoardModel : MonoBehaviour
 
         while (x != columns - 1)
         {
-            //figure out if you can go down
-            if (withinBounds(y + 1, x))
+            // Check the vector (+1, -1)
+            if (withinBounds(y - 1, x + 1))
             {
-                if (board[y + 1, x] != BlockTypes.empty)
+                if (board[y - 1, x + 1] != BlockTypes.empty)
                 {
-                    y += 1;
+                    x += 1;
+                    y -= 1;
                     continue;
                 }
             }
 
-            //figure out if you can go right
+            // Check the vector (+1, 0)
             if (withinBounds(y, x + 1))
             {
                 if (board[y, x + 1] != BlockTypes.empty)
@@ -157,12 +156,13 @@ public class BoardModel : MonoBehaviour
                 }
             }
 
-            //figure out if you can go up
+            // Check the vector (+1, +1)
             if (withinBounds(y + 1, x))
             {
-                if (board[y + 1, x] != BlockTypes.empty)
+                if (board[y + 1, x + 1] != BlockTypes.empty)
                 {
                     x += 1;
+                    y += 1;
                     continue;
                 }
             }
@@ -173,7 +173,7 @@ public class BoardModel : MonoBehaviour
 
         if (loopCompletedSuccessfully)
         {
-            //this is for debugging purposes
+            // You Win
             print("You Win!");
         }
     }
