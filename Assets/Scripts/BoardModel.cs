@@ -83,7 +83,7 @@ public class BoardModel : MonoBehaviour
 
     Vector2 pickCell()
     {
-        int y = Random.Range(lowestRow, highestRow + 1);
+        int y = Random.Range(lowestRow, highestRow);
         int x = Random.Range(0, columns);
 
         while (true)
