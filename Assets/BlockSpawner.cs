@@ -4,22 +4,35 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
-    
-    public int blocksAvailable = 18;
+    //positive values force the blocks down...
+    public int yOffset = 0;
+    public int blocksAvailable = 12;
     public List<GameObject> blocksArray = new List<GameObject>();
+    Camera mainCamera;
+
 
     void spawnBlock()
     {
+        //pick a random block from the array
         int index = Random.Range(0, blocksAvailable);
 
         //Quaternion.identity means no rotation
-        GameObject.Instantiate(blocksArray[index], generateVertex(), Quaternion.identity);
+        GameObject.Instantiate(blocksArray[index], generateVector(), Quaternion.identity);
     }
 
-    Vector3 generateVertex()
+    Vector3 generateVector()
     {
+        mainCamera = Camera.main;
+        
+        //the left edge of the screen, and the bottom of the screen
+        int leftCorner = Mathf.CeilToInt( mainCamera.ScreenToWorldPoint(Vector3.zero).x );
+        int screenBottom = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(Vector3.zero).y);
+        
+        //the right edge of the screen
+        int rightCorner = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x) + 1;
+
         //create a vector that is below the frustum
-        int x = Random.Range(0, 5);
-        return new Vector3(x, 0);
+        int x = Random.Range(leftCorner, rightCorner);
+        return new Vector3(x, screenBottom - yOffset);
     }
 }

@@ -7,6 +7,5 @@ public class DespawnWhenInvisible: MonoBehaviour
     void OnBecameInvisible()
     {
         Destroy(gameObject);
-       
     }
 }
