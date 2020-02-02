@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
-    //Spawns the next faller
+    //Spawns the next faller if the block either disappered...
+    //or has landed
+
+
     //The vector generator is slightly different...
     //It generates only vectors at the bottom of the screen and below...
 
