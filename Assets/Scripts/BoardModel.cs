@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,9 +70,6 @@ public class BoardModel : MonoBehaviour
             //pick a cell in the board
             Vector2 cell = pickCell();
 
-            //convert that cell to a world coordinate
-            Vector3 approxWorldPos = convertCellToWorld(cell);
-
             //instantiate
             Instantiate(preGenerationBlock, approxWorldPos, Quaternion.identity);
 
@@ -101,20 +98,6 @@ public class BoardModel : MonoBehaviour
         }
 
         return new Vector2(x, y);
-    }
-
-
-    Vector3 convertCellToWorld(Vector2 cell)
-    {
-        mainCamera = Camera.main;
-
-        float cameraX = (cell.x / columns) * mainCamera.scaledPixelWidth;
-        float cameraY = (cell.y / rows) * mainCamera.scaledPixelHeight;
-
-        int worldX = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(cameraX, 0)).x);
-        int worldY = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(0, cameraY)).y);
-
-        return new Vector3(worldX, worldY);
     }
 
     // we do it y first, then x because our arrays are [row][column]
