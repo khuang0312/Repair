@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
+    //Spawns the next faller
+    //The vector generator is slightly different...
+    //It generates only vectors at the bottom of the screen and below...
+
     //positive values force the blocks down...
     public int yOffset = 0;
     public int blocksAvailable = 12;
@@ -23,7 +27,7 @@ public class BlockSpawner : MonoBehaviour
     Vector3 generateVector()
     {
         mainCamera = Camera.main;
-        
+
         //the left edge of the screen, and the bottom of the screen
         int leftCorner = Mathf.CeilToInt( mainCamera.ScreenToWorldPoint(Vector3.zero).x );
         int screenBottom = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(Vector3.zero).y);
