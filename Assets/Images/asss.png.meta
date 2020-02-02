@@ -35,6 +35,12 @@ TextureImporter:
   - first:
       213: -474160593959950939
     second: ZLeft
+  - first:
+      213: 5699103422929861217
+    second: Human1
+  - first:
+      213: 7054297649959912669
+    second: Human2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -345,6 +351,48 @@ TextureImporter:
       bones: []
       spriteID: 21874d8944356304c8acb6dcf6ddc0f7
       internalID: -474160593959950939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Human1
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 30
+        width: 1
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1d3b7fdfc01e8043b6c39ab31db7ab7
+      internalID: 5699103422929861217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Human2
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 30
+        width: 1
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af7e8c3adbce402428aae3a612c1df0b
+      internalID: 7054297649959912669
       vertices: []
       indices: 
       edges: []
