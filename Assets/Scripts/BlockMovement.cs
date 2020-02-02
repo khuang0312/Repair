@@ -22,7 +22,6 @@ public class BlockMovement : MonoBehaviour
     {
         if (movable)
         {
-            Shoot();
             if (Input.GetKey(KeyCode.D))
             {
                 targetPosition = transform.position + new Vector3(0.5f, 0, 0);
@@ -55,10 +54,5 @@ public class BlockMovement : MonoBehaviour
             spawner = GameObject.Find("BlockSpawner");
             spawner.GetComponent<BlockSpawner>().spawnBlock();
         }
-    }
-
-    void Shoot()
-    {
-
     }
 }

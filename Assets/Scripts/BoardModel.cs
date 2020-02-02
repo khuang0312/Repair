@@ -6,7 +6,7 @@ public class BoardModel : MonoBehaviour
 {
     //some variables we need throughout
     Camera mainCamera;
-    
+
     //this sets up the board
     static int rows = 20;
     static int columns = 24;
@@ -30,7 +30,7 @@ public class BoardModel : MonoBehaviour
 
     //this is where we stick the block we want to randomly generate...
     public GameObject preGenerationBlock;
-    
+
 
     void Start()
     {
@@ -57,9 +57,6 @@ public class BoardModel : MonoBehaviour
     //this places the intial blocks...
     void InitialGeneration(int maxNumberOfBlocks)
     {
-        int row = Random.Range(lowestRow, highestRow + 1);
-        int column = Random.Range(0, columns);
-
         //there will only be maxNumberOfBlocks generated
         //they will generate within the whole width and select rows of the board...
         for (int i = 0; i < maxNumberOfBlocks; ++i)
@@ -74,7 +71,7 @@ public class BoardModel : MonoBehaviour
             Instantiate(preGenerationBlock, approxWorldPos, Quaternion.identity);
 
             //flag cell to show that it's been occupied.
-            board[row, column] = BlockTypes.preGenBlock;
+            board[(int)cell.y, (int)cell.x] = BlockTypes.preGenBlock;
         }
     }
 
@@ -82,7 +79,7 @@ public class BoardModel : MonoBehaviour
     {
         int y = Random.Range(lowestRow, highestRow + 1);
         int x = Random.Range(0, columns);
-        
+
         while (board[y, x] != BlockTypes.empty)
         {
             y = Random.Range(lowestRow, highestRow + 1);
@@ -90,13 +87,13 @@ public class BoardModel : MonoBehaviour
         }
 
         return new Vector2(x, y);
-    }   
+    }
 
 
     Vector3 convertCellToWorld(Vector2 cell)
     {
         mainCamera = Camera.main;
-        
+
         float cameraX = (cell.x / columns) * mainCamera.scaledPixelWidth;
         float cameraY = (cell.y / rows) * mainCamera.scaledPixelHeight;
 
