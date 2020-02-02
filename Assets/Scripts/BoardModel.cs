@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class BoardModel : MonoBehaviour
 {
+    //some variables we need throughout
+    Camera mainCamera;
+    int leftSide;
+    int rightSide;
+    int topSide;
+    int bottomSide;
     
     //this sets up the board
     static int rows = 20;
     static int columns = 24;
-    int[,] board = new int[rows, columns];
+    BlockTypes[,] board = new BlockTypes[rows, columns];
 
     //this might come in handy...
     enum BlockTypes
     {
-        noBlock,
+        empty,
         preGenBlock,
         frozenBlock,
         faller,
@@ -32,18 +38,22 @@ public class BoardModel : MonoBehaviour
 
     void Start()
     {
-        
+        //initializing the cells
+        InitializeBoard();
+
+        //placing the pre-generated blocks randomly within a certain range of rows...
+        InitialGeneration(maxNumberOfBlocks);
     }
 
-    //this is for initializing every cell in the board to 0
-    //0 represents that there is nothing currently occupying it
+    //this is for initializing every cell in the board to empty
+    //empty represents that there is nothing currently occupying it
     void InitializeBoard()
     {
         for (int i = 0; i < rows; ++i)
         {
             for (int j = 0; j < columns; ++j)
             {
-                board[i, j] = 0;
+                board[i, j] = BlockTypes.empty;
             }
         }
     }
@@ -65,12 +75,22 @@ public class BoardModel : MonoBehaviour
                 column = Random.Range(0, columns);
             }
 
-           Instantiate(preGenerationBlock, new Vector3(row, column), Quaternion.identity);
+            mainCamera = Camera.main;
+            float cameraX = (column / columns) * mainCamera.scaledPixelWidth;
+            float cameraY = (row / rows) * mainCamera.scaledPixelHeight;
+
+            int worldX = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(cameraX, 0)).x);
+            int worldY = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(0, cameraY)).y);
+
+            print(worldX);
+            print(worldY);
+
+           Instantiate(preGenerationBlock, new Vector3(worldX, worldY), Quaternion.identity);
 
            //mark the board to show that something has spawned here...
-           board[row, column] = 1;
+           board[row, column] = BlockTypes.preGenBlock;
         }
     }
-    
+
 
 }

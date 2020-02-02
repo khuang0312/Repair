@@ -578,7 +578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &509994027
 Rigidbody2D:
   serializedVersion: 4
@@ -783,7 +783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 606951354}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BoardModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
