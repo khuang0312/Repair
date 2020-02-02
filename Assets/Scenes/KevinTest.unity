@@ -212,7 +212,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 256027546}
-  - component: {fileID: 256027545}
   - component: {fileID: 256027547}
   m_Layer: 0
   m_Name: BlockGenerator
@@ -221,22 +220,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &256027545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256027544}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0f80538e7ca444c92530160ab83ca8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxNumberOfBlocks: 6
-  lowerHeightBound: 0
-  upperHeightBound: 3
-  block: {fileID: 4607074998862025725, guid: f3be231b94eeced4589d9f870659a025, type: 3}
 --- !u!4 &256027546
 Transform:
   m_ObjectHideFlags: 0
@@ -264,8 +247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNumberOfBlocks: 6
-  lowestRow: 4
-  highestRow: 9
+  lowestRow: 0
+  highestRow: 20
   preGenerationBlock: {fileID: 4607074998862025725, guid: f3be231b94eeced4589d9f870659a025,
     type: 3}
 --- !u!1 &265388842
@@ -284,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &265388843
 Transform:
   m_ObjectHideFlags: 0

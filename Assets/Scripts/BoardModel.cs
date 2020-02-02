@@ -41,6 +41,12 @@ public class BoardModel : MonoBehaviour
         InitialGeneration(maxNumberOfBlocks);
     }
 
+    void Update()
+    {
+        //evaluate win condition
+        evaluateWinCondition();
+    }
+
     //this is for initializing every cell in the board to empty
     //empty represents that there is nothing currently occupying it
     void InitializeBoard()
@@ -82,9 +88,17 @@ public class BoardModel : MonoBehaviour
     {
         int y = Random.Range(lowestRow, highestRow + 1);
         int x = Random.Range(0, columns);
-        
-        while (board[y, x] != BlockTypes.empty)
+
+        while (true)
         {
+            if (withinBounds(y, x))
+            {
+                if (board[y, x] == BlockTypes.empty)
+                {
+                    break;
+                }
+            }
+
             y = Random.Range(lowestRow, highestRow + 1);
             x = Random.Range(0, columns);
         }
@@ -106,5 +120,71 @@ public class BoardModel : MonoBehaviour
         return new Vector3(worldX, worldY);
     }
 
+    // we do it y first, then x because our arrays are [row][column]
+    bool withinBounds(int y, int x)
+    {
+        bool xIsValid = (0 <= x && x < columns);
+        bool yIsValid = (0 <= y && y < rows);
+        return ( xIsValid && yIsValid );
+    }
 
+    void evaluateWinCondition()
+    {
+        int y = 0;
+        int x = 0;
+
+        for (int i = 0; i < rows; ++i)
+        {
+            //find the first row of a bridge...
+            if (board[i, 0] != BlockTypes.empty)
+            {
+                y = i;
+                break;
+            }
+        }
+
+        bool loopCompletedSuccessfully = true;
+
+        while (x != columns - 1)
+        {
+            //figure out if you can go down
+            if (withinBounds(y + 1, x))
+            {
+                if (board[y + 1, x] != BlockTypes.empty)
+                {
+                    y += 1;
+                    continue;
+                }
+            }
+
+            //figure out if you can go right
+            if (withinBounds(y, x + 1))
+            {
+                if (board[y, x + 1] != BlockTypes.empty)
+                { 
+                    x += 1;
+                    continue;
+                }
+            }
+
+            //figure out if you can go up
+            if (withinBounds(y + 1, x))
+            {
+                if (board[y + 1, x] != BlockTypes.empty)
+                {
+                    x += 1;
+                    continue;
+                }
+            }
+
+            loopCompletedSuccessfully = false;
+            break;
+        }
+
+        if (loopCompletedSuccessfully)
+        {
+            //this is for debugging purposes
+            print("You Win!");
+        }
+    }
 }
