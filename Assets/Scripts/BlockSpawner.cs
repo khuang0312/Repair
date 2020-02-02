@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour
 {
-    //Spawns the next faller if the block either disappered...
-    //or has landed
+    // Spawns the next faller if the block has either disappered or landed
 
 
-    //The vector generator is slightly different...
-    //It generates only vectors at the bottom of the screen and below...
+    // The vector generator is slightly different...
+    // It generates only vectors at the bottom of the screen and below...
 
-    //positive values force the blocks down...
+    // Positive values force the blocks down...
     public int yOffset = 0;
     public int blocksAvailable = 12;
     public List<GameObject> blocksArray = new List<GameObject>();
@@ -19,16 +18,16 @@ public class BlockSpawner : MonoBehaviour
 
     private void Start()
     {
-        //spawn the first block
+        // Spawn the first block
         spawnBlock();
     }
 
     public void spawnBlock()
     {
-        //pick a random block from the array
+        // Pick a random block from the array
         int index = Random.Range(0, blocksAvailable);
 
-        //Quaternion.identity means no rotation
+        // Quaternion.identity means no rotation
         GameObject.Instantiate(blocksArray[index], generateVector(), Quaternion.identity);
     }
 
@@ -36,14 +35,14 @@ public class BlockSpawner : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        //the left edge of the screen, and the bottom of the screen
+        // The left edge of the screen, and the bottom of the screen
         int leftCorner = Mathf.CeilToInt( mainCamera.ScreenToWorldPoint(Vector3.zero).x ) + 1;
         int screenBottom = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(Vector3.zero).y);
         
-        //the right edge of the screen
+        // The right edge of the screen
         int rightCorner = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x);
 
-        //create a vector that is below the frustum
+        // Create a vector that is below the frustum
         int x = Random.Range(leftCorner, rightCorner);
         return new Vector3(x, screenBottom - yOffset);
     }
