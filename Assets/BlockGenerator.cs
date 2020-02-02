@@ -20,14 +20,10 @@ public class BlockGenerator : MonoBehaviour
 
     void Start()
     {
-        //pick a number of blocks to generate
-        int numberOfBlocks = Random.Range(0, maxNumberOfBlocks + 1);
-
         //for each block, generate a vector...
         for (int i = 0; i < maxNumberOfBlocks; ++i)
         {
             //randomly pick a block from a selection and instantiate it
-            GameObject block;
             spawnPoint = generateVector();
            
             Instantiate(block, spawnPoint, Quaternion.identity);
@@ -38,8 +34,11 @@ public class BlockGenerator : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        int x = Random.Range(1, Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x));
+        int x = Random.Range(Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(0, 0)).x), 
+            Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x));
+
         int y = Random.Range(lowerHeightBound, upperHeightBound + 1);
+
         Vector3 spawnPoint = new Vector3(x, y);
 
         //check to make sure that there isn't a collider there...
