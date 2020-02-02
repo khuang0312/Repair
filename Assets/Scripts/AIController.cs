@@ -26,7 +26,7 @@ public class AIController : MonoBehaviour
         //basically check to see if there is a block right in front...
 
         moveRight = new Vector3(0.5f, 0f);
-        raycastShooter = villager.GetComponent<RayCastOrigin>();
+        //raycastShooter = villager.GetComponent<RayCastOrigin>();
 
         Debug.DrawRay(villager.transform.position, moveRight, Color.cyan, 1, false);
         blockInFront = Physics2D.Raycast(villager.transform.position, moveRight, 1.0f);
