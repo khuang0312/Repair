@@ -8,6 +8,7 @@ public class BlockMovement : MonoBehaviour
     public float speed = 3f;
     public bool movable = true;
 
+    public Transform blockChecker;
     GameObject spawner;
 
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class BlockMovement : MonoBehaviour
     {
         if (movable)
         {
+            Shoot();
             if (Input.GetKey(KeyCode.D))
             {
                 targetPosition = transform.position + new Vector3(0.5f, 0, 0);
@@ -37,14 +39,14 @@ public class BlockMovement : MonoBehaviour
         }
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
 
-        
+
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (movable)
         {
-            targetPosition = new Vector2(Mathf.Round(targetPosition.x), Mathf.Round(targetPosition.y * 2f) * 0.5f);
+            targetPosition = new Vector2(Mathf.Floor(targetPosition.x), Mathf.Round(targetPosition.y * 2f) * 0.5f);
             movable = false;
 
             //spawn a new block
@@ -53,5 +55,10 @@ public class BlockMovement : MonoBehaviour
             spawner = GameObject.Find("BlockSpawner");
             spawner.GetComponent<BlockSpawner>().spawnBlock();
         }
+    }
+
+    void Shoot()
+    {
+
     }
 }
