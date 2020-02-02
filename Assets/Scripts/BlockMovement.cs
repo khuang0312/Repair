@@ -8,6 +8,8 @@ public class BlockMovement : MonoBehaviour
     public float speed = 3f;
     public bool movable = true;
 
+    GameObject spawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,9 +40,18 @@ public class BlockMovement : MonoBehaviour
         
     }
 
-    void OnCollisionStay2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        targetPosition = new Vector2(Mathf.Round(targetPosition.x), Mathf.Round(targetPosition.y * 2f) * 0.5f);
-        movable = false;
+        if (movable)
+        {
+            targetPosition = new Vector2(Mathf.Round(targetPosition.x), Mathf.Round(targetPosition.y * 2f) * 0.5f);
+            movable = false;
+
+            //spawn a new block
+
+
+            spawner = GameObject.Find("BlockSpawner");
+            spawner.GetComponent<BlockSpawner>().spawnBlock();
+        }
     }
 }

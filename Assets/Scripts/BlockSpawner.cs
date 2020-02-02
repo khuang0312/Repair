@@ -37,11 +37,11 @@ public class BlockSpawner : MonoBehaviour
         mainCamera = Camera.main;
 
         //the left edge of the screen, and the bottom of the screen
-        int leftCorner = Mathf.CeilToInt( mainCamera.ScreenToWorldPoint(Vector3.zero).x );
+        int leftCorner = Mathf.CeilToInt( mainCamera.ScreenToWorldPoint(Vector3.zero).x ) + 1;
         int screenBottom = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(Vector3.zero).y);
         
         //the right edge of the screen
-        int rightCorner = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x) + 1;
+        int rightCorner = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x);
 
         //create a vector that is below the frustum
         int x = Random.Range(leftCorner, rightCorner);
