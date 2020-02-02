@@ -6,10 +6,6 @@ public class BoardModel : MonoBehaviour
 {
     //some variables we need throughout
     Camera mainCamera;
-    int leftSide;
-    int rightSide;
-    int topSide;
-    int bottomSide;
     
     //this sets up the board
     static int rows = 20;
@@ -61,35 +57,53 @@ public class BoardModel : MonoBehaviour
     //this places the intial blocks...
     void InitialGeneration(int maxNumberOfBlocks)
     {
+        int row = Random.Range(lowestRow, highestRow + 1);
+        int column = Random.Range(0, columns);
+
         //there will only be maxNumberOfBlocks generated
         //they will generate within the whole width and select rows of the board...
         for (int i = 0; i < maxNumberOfBlocks; ++i)
         {
-            int row = Random.Range(lowestRow, highestRow + 1);
-            int column = Random.Range(0, columns);
+            //pick a cell in the board
+            Vector2 cell = pickCell();
 
-            //if the index is occupied by some other number, leave it
-            while (board[row, column] != 0)
-            {
-                row = Random.Range(lowestRow, highestRow + 1);
-                column = Random.Range(0, columns);
-            }
+            //convert that cell to a world coordinate
+            Vector3 approxWorldPos = convertCellToWorld(cell);
 
-            mainCamera = Camera.main;
-            float cameraX = (column / columns) * mainCamera.scaledPixelWidth;
-            float cameraY = (row / rows) * mainCamera.scaledPixelHeight;
+            //instantiate
+            Instantiate(preGenerationBlock, approxWorldPos, Quaternion.identity);
 
-            int worldX = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(cameraX, 0)).x);
-            int worldY = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(0, cameraY)).y);
-
-            print(worldX);
-            print(worldY);
-
-           Instantiate(preGenerationBlock, new Vector3(worldX, worldY), Quaternion.identity);
-
-           //mark the board to show that something has spawned here...
-           board[row, column] = BlockTypes.preGenBlock;
+            //flag cell to show that it's been occupied.
+            board[row, column] = BlockTypes.preGenBlock;
         }
+    }
+
+    Vector2 pickCell()
+    {
+        int y = Random.Range(lowestRow, highestRow + 1);
+        int x = Random.Range(0, columns);
+        
+        while (board[y, x] != BlockTypes.empty)
+        {
+            y = Random.Range(lowestRow, highestRow + 1);
+            x = Random.Range(0, columns);
+        }
+
+        return new Vector2(x, y);
+    }   
+
+
+    Vector3 convertCellToWorld(Vector2 cell)
+    {
+        mainCamera = Camera.main;
+        
+        float cameraX = (cell.x / columns) * mainCamera.scaledPixelWidth;
+        float cameraY = (cell.y / rows) * mainCamera.scaledPixelHeight;
+
+        int worldX = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(cameraX, 0)).x);
+        int worldY = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(0, cameraY)).y);
+
+        return new Vector3(worldX, worldY);
     }
 
 
