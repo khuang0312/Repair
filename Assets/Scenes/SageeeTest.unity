@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2, y: 44}
+  m_AnchoredPosition: {x: 2, y: 44}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &351366299
@@ -343,7 +343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682688215}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 11.5, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1977577389}
@@ -688,8 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902bfe00f4ce6a14d800f0c595efb8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  maxNumberOfBlocks: 24
+  numBlocks: 5
   lowestRow: 9
   highestRow: 10
   preGenerationBlock: {fileID: 4607074998862025725, guid: f3be231b94eeced4589d9f870659a025,
