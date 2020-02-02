@@ -8,7 +8,7 @@ public class BoardModel : MonoBehaviour
     Camera mainCamera;
 
     //this sets up the board
-    static int rows = 20;
+    static int rows = 21;
     static int columns = 24;
     BlockTypes[,] board = new BlockTypes[rows, columns];
 
@@ -22,7 +22,7 @@ public class BoardModel : MonoBehaviour
     }
 
     //this affects the pre-generated blocks
-    public int maxNumberOfBlocks;
+    public int numBlocks;
 
     //this will be from lowestRow to highestRow (inclusive)...
     public int lowestRow;
@@ -38,13 +38,13 @@ public class BoardModel : MonoBehaviour
         InitializeBoard();
 
         //placing the pre-generated blocks randomly within a certain range of rows...
-        InitialGeneration(maxNumberOfBlocks);
+        InitialGeneration(numBlocks);
     }
 
     void Update()
     {
         //evaluate win condition
-        evaluateWinCondition();
+        // evaluateWinCondition();
     }
 
     //this is for initializing every cell in the board to empty
@@ -61,60 +61,40 @@ public class BoardModel : MonoBehaviour
     }
 
     //this places the intial blocks...
-    void InitialGeneration(int maxNumberOfBlocks)
+    void InitialGeneration(int numBlocks)
     {
         //there will only be maxNumberOfBlocks generated
         //they will generate within the whole width and select rows of the board...
-        for (int i = 0; i < maxNumberOfBlocks; ++i)
+        for (int i = 0; i < numBlocks; ++i)
         {
             //pick a cell in the board
             Vector2 cell = pickCell();
 
-            //convert that cell to a world coordinate
-            Vector3 approxWorldPos = convertCellToWorld(cell);
-
-            //instantiate
-            Instantiate(preGenerationBlock, approxWorldPos, Quaternion.identity);
-
-            //flag cell to show that it's been occupied.
-            board[(int)cell.y, (int)cell.x] = BlockTypes.preGenBlock;
+            spawnBlock(cell);
         }
+    }
+
+    void spawnBlock(Vector2 cell)
+    {
+        //instantiate
+        Instantiate(preGenerationBlock, cell, Quaternion.identity);
+
+        //flag cell to show that it's been occupied.
+        board[(int)cell.y, (int)cell.x] = BlockTypes.preGenBlock;
     }
 
     Vector2 pickCell()
     {
-        int y = Random.Range(lowestRow, highestRow + 1);
+        int y = Random.Range(lowestRow, highestRow);
         int x = Random.Range(0, columns);
 
-        while (true)
+        while (!(withinBounds(y, x) && board[y, x] == BlockTypes.empty))
         {
-            if (withinBounds(y, x))
-            {
-                if (board[y, x] == BlockTypes.empty)
-                {
-                    break;
-                }
-            }
-
-            y = Random.Range(lowestRow, highestRow + 1);
+            y = Random.Range(lowestRow, highestRow);
             x = Random.Range(0, columns);
         }
 
         return new Vector2(x, y);
-    }
-
-
-    Vector3 convertCellToWorld(Vector2 cell)
-    {
-        mainCamera = Camera.main;
-
-        float cameraX = (cell.x / columns) * mainCamera.scaledPixelWidth;
-        float cameraY = (cell.y / rows) * mainCamera.scaledPixelHeight;
-
-        int worldX = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(cameraX, 0)).x);
-        int worldY = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(0, cameraY)).y);
-
-        return new Vector3(worldX, worldY);
     }
 
     // we do it y first, then x because our arrays are [row][column]

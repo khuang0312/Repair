@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClearBoard : MonoBehaviour
 {
-    //purges anything that is a block from the game...
+    // Purges anything that is a block from the game...
 
     void clearBoard()
     {
