@@ -7,6 +7,7 @@ public class BlockMovement : MonoBehaviour
     public Vector2 targetPosition;
     public float speed = 3f;
     public bool movable = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,8 @@ public class BlockMovement : MonoBehaviour
             targetPosition = new Vector2(targetPosition.x, targetPosition.y + .03f);
         }
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
+
+        
     }
 
     void OnCollisionStay2D(Collision2D other)

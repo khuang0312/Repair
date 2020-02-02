@@ -14,8 +14,13 @@ public class BlockSpawner : MonoBehaviour
     public List<GameObject> blocksArray = new List<GameObject>();
     Camera mainCamera;
 
+    private void Start()
+    {
+        //spawn the first block
+        spawnBlock();
+    }
 
-    void spawnBlock()
+    public void spawnBlock()
     {
         //pick a random block from the array
         int index = Random.Range(0, blocksAvailable);
