@@ -30,6 +30,7 @@ public class BoardModel : MonoBehaviour
 
     //this is where we stick the block we want to randomly generate...
     public GameObject preGenerationBlock;
+    public List<GameObject> blocksArray = new List<GameObject>();
 
 
     void Start()
@@ -39,6 +40,9 @@ public class BoardModel : MonoBehaviour
 
         //placing the pre-generated blocks randomly within a certain range of rows...
         InitialGeneration(numBlocks);
+
+        // Spawn the first block
+        spawnBlock();
     }
 
     void Update()
@@ -70,11 +74,20 @@ public class BoardModel : MonoBehaviour
             //pick a cell in the board
             Vector2 cell = pickCell();
 
-            spawnBlock(cell);
+            placeBlock(cell);
         }
     }
 
-    void spawnBlock(Vector2 cell)
+    void spawnBlock()
+    {
+        // Pick a random block from the array
+        // int index = Random.Range(0, 1);
+
+        // Quaternion.identity means no rotation
+        GameObject.Instantiate(blocksArray[0], new Vector2(0, 0), Quaternion.identity);
+    }
+
+    void placeBlock(Vector2 cell)
     {
         //instantiate
         Instantiate(preGenerationBlock, cell, Quaternion.identity);
@@ -164,4 +177,9 @@ public class BoardModel : MonoBehaviour
             print("You Win!");
         }
     }
+
+
+
 }
+
+

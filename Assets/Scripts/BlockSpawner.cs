@@ -36,9 +36,9 @@ public class BlockSpawner : MonoBehaviour
         mainCamera = Camera.main;
 
         // The left edge of the screen, and the bottom of the screen
-        int leftCorner = Mathf.CeilToInt( mainCamera.ScreenToWorldPoint(Vector3.zero).x ) + 1;
+        int leftCorner = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(Vector3.zero).x) + 1;
         int screenBottom = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(Vector3.zero).y);
-        
+
         // The right edge of the screen
         int rightCorner = Mathf.CeilToInt(mainCamera.ScreenToWorldPoint(new Vector3(mainCamera.pixelWidth, 0)).x);
 
